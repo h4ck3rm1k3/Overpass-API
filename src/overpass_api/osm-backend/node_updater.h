@@ -37,9 +37,13 @@ struct Update_Node_Logger
 public:
   void insertion(const Node& node)
   {
+    OSM_Element_Metadata * null_meta=0;
     map< Node::Id_Type, pair< Node, OSM_Element_Metadata* > >::iterator it = insert.find(node.id);
     if (it == insert.end())
-      insert.insert(make_pair(node.id, make_pair< Node, OSM_Element_Metadata* >(node, 0)));
+    {
+
+      insert.insert(make_pair(node.id, make_pair(node, null_meta)));
+    }
     else
       it->second.first = node;
   }
@@ -53,11 +57,11 @@ public:
   
   void deletion(const Uint32_Index& index, const Node_Skeleton& skel)
   {
+    OSM_Element_Metadata * null_meta=0;
     map< Node::Id_Type, pair< Node, OSM_Element_Metadata* > >::iterator it = erase.find(skel.id);
     if (it == erase.end())
     {
-      erase.insert(make_pair(skel.id, make_pair< Node, OSM_Element_Metadata* >
-          (Node(skel.id.val(), index.val(), skel.ll_lower), 0)));
+      erase.insert(make_pair(skel.id, make_pair(Node(skel.id.val(), index.val(), skel.ll_lower), null_meta)));
     }
     else
       it->second.first = Node(skel.id.val(), index.val(), skel.ll_lower);
@@ -65,11 +69,11 @@ public:
   
   void keeping(const Uint32_Index& index, const Node_Skeleton& skel)
   {
+    OSM_Element_Metadata * null_meta=0;
     map< Node::Id_Type, pair< Node, OSM_Element_Metadata* > >::iterator it = keep.find(skel.id);
     if (it == keep.end())
     {
-      keep.insert(make_pair(skel.id, make_pair< Node, OSM_Element_Metadata* >
-          (Node(skel.id.val(), index.val(), skel.ll_lower), 0)));
+      keep.insert(make_pair(skel.id, make_pair(Node(skel.id.val(), index.val(), skel.ll_lower), null_meta)));
     }
     else
       it->second.first = Node(skel.id.val(), index.val(), skel.ll_lower);

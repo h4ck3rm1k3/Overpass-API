@@ -33,15 +33,17 @@
 
 using namespace std;
 
-
 struct Update_Way_Logger
 {
 public:
+  
   void insertion(const Way& way)
   {
+    OSM_Element_Metadata * null_meta=0;
+
     map< Way::Id_Type, pair< Way, OSM_Element_Metadata* > >::iterator it = insert.find(way.id);
     if (it == insert.end())
-      insert.insert(make_pair(way.id, make_pair< Way, OSM_Element_Metadata* >(way, 0)));
+      insert.insert(make_pair(way.id, make_pair(way, null_meta)));
     else
       it->second.first = way;
     
@@ -267,5 +269,6 @@ private:
   
   void merge_files(const vector< string >& froms, string into);
 };
+
 
 #endif

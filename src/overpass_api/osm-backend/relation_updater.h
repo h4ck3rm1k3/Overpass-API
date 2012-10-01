@@ -33,15 +33,16 @@
 
 using namespace std;
 
-
 struct Update_Relation_Logger
 {
 public:
+
   void insertion(const Relation& relation)
   {
+    OSM_Element_Metadata * null_meta=0;
     map< Relation::Id_Type, pair< Relation, OSM_Element_Metadata* > >::iterator it = insert.find(relation.id);
     if (it == insert.end())
-      insert.insert(make_pair(relation.id, make_pair< Relation, OSM_Element_Metadata* >(relation, 0)));
+      insert.insert(make_pair(relation.id, make_pair(relation, null_meta)));
     else
       it->second.first = relation;
     
@@ -59,11 +60,13 @@ public:
   
   void deletion(const Uint31_Index& index, const Relation_Skeleton& skel)
   {
+    OSM_Element_Metadata * null_meta=0;
+
     map< Relation::Id_Type, pair< Relation, OSM_Element_Metadata* > >::iterator it = erase.find(skel.id);
     if (it == erase.end())
     {
-      it = erase.insert(make_pair(skel.id, make_pair< Relation, OSM_Element_Metadata* >
-          (Relation(skel.id.val()), 0))).first;
+      it = erase.insert(make_pair(skel.id, make_pair
+          (Relation(skel.id.val()), null_meta))).first;
     }
     else
       it->second.first = Relation(skel.id.val());
@@ -76,6 +79,8 @@ public:
   
   void keeping(const Uint31_Index& index, const Relation_Skeleton& skel)
   {
+    OSM_Element_Metadata * null_meta=0;
+
     map< Relation::Id_Type, pair< Relation, OSM_Element_Metadata* > >::iterator it = erase.find(skel.id);
     if (it != erase.end())
       return;
@@ -87,8 +92,8 @@ public:
     it = keep.find(skel.id);
     if (it == keep.end())
     {
-      it = keep.insert(make_pair(skel.id, make_pair< Relation, OSM_Element_Metadata* >
-          (Relation(skel.id.val()), 0))).first;
+      it = keep.insert(make_pair(skel.id, make_pair
+                                 (Relation(skel.id.val()), null_meta))).first;
     }
     else
       it->second.first = Relation(skel.id.val());

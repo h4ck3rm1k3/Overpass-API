@@ -1,0 +1,36 @@
+<query type="node"><bbox-query n="51.0" s="50.9" w="6.9" e="7.0"/><has-kv k="amenity" v="pub"/></query><print/>
+
+<query type="node">
+  <bbox-query n="51.0" s="50.9" w="6.9" e="7.0"/>
+  <has-kv k="amenity" v="pub"/>
+</query>
+<print/>
+
+<query type="node">
+  <bbox-query n="51.0" s="50.9" w="6.9" e="7.0"/>
+  <has-kv k="amenity" v="place_of_worship"/>
+</query>
+<print/>
+
+<query type="node">
+  <bbox-query n="51.0" s="50.9" w="6.9" e="7.0"/>
+  <has-kv k="amenity" v="place_of_worship"/>
+  <has-kv k="name"/>
+</query>
+<print/>
+
+<union>
+  <bbox-query n="51.0" s="50.9" w="6.9" e="7.0"/>
+  <recurse type="node-relation" into="__"/>
+  <recurse type="node-way"/>
+  <recurse type="way-relation"/>
+</union>
+<print/>
+
+<osm-script timeout="1800">
+<query type="node">
+  <has-kv k="amenity" v="place_of_worship"/>
+  <has-kv k="name"/>
+</query>
+<print/>
+</osm-script>

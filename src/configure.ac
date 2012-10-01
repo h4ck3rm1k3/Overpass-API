@@ -9,7 +9,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 LT_INIT
 
-CXXFLAGS="-std=c++0x --verbose -save-temps"
+CXXFLAGS="-std=c++0x --verbose -save-temps -g3 -Wall -O0"
 
 # Checks for programs.
 AC_PROG_CC

@@ -110,7 +110,7 @@ pair< uint32, Uint32_Index > Make_Area_Statement::detect_pivot(const Set& pivot)
     ++rit;
   }
   
-  return make_pair< uint32, Uint32_Index >(pivot_type, pivot_id);
+  return make_pair(pivot_type, pivot_id);
 }
 
 Node::Id_Type Make_Area_Statement::check_node_parity(const Set& pivot)
@@ -200,7 +200,7 @@ pair< Uint32_Index, Uint32_Index > Make_Area_Statement::create_area_blocks
 	areas[cur_idx].push_back(Area_Block(id, cur_polyline));
     }
   }
-  return make_pair< uint32, uint32 >(0, 0);
+  return make_pair(0, 0);
 }
 
 uint32 Make_Area_Statement::shifted_lat(uint32 ll_index, uint64 coord)
